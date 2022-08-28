@@ -1,0 +1,33 @@
+if self.hits_map[row][col] == 1 and [row, col] not in self.hit_ship_coord:
+
+                        #looking to the right of coord that we are at right now
+                        if row+1 <10 and self.hits_map[row+1][col] == 0:
+
+                            #if the coord to its left exists and if has already been hit and the ship it's attached to hasn't been sunk,
+                            # then the coord to the right of current is likely to have a ship
+
+                            if row-1 > -1 and [row-1, col] in self.hit_ship_coord and [row-1, col] not in self.ships_sunk_coords:
+                                self.PROB_MAP[row+1][col] += 15
+                            #otherwise it is not as likely to contain ship coord
+                            else:
+                                self.PROB_MAP[row+1][col] += 10
+                        
+                        if row-1 > -1 and self.hits_map[row-1][col] == 0:
+                            if row + 1 < 10 and [row+1, col] in self.hit_ship_coord and [row+1, col] not in self.ships_sunk_coords:
+                                self.PROB_MAP[row-1][col] += 15
+                            else:
+                                self.PROB_MAP[row-1][col] += 10
+                        
+                        if col+1<10 and self.hits_map[row][col+1] == 0:
+                            if col-1 >-1 and [row,col-1] in self.hit_ship_coord and [row,col-1] not in self.ships_sunk_coords:
+                                self.PROB_MAP[row][col+1] += 15
+                            else:
+                                self.PROB_MAP[row][col+1] += 10
+
+                        if col-1 >-1 and self.hits_map[row][col-1] == 0:
+                            if col+1 < 10 and [row,col+1] in self.hit_ship_coord and [row,col+1] not in self.ships_sunk_coords:
+                                self.PROB_MAP[row][col-1] += 15
+                            else:
+                                self.PROB_MAP[row][col-1] += 10
+                    elif self.hits_map[row][col] == 1 and [row,col] not in self.hit_ship_coord:
+                        self.PROB_MAP[row][col] = 0
